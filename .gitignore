@@ -1,0 +1,17 @@
+# Local-only configuration and credentials
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Generated or developer-local artifacts
+node_modules/
+output/
+playwright-report/
+test-results/
+.playwright-cli/
+*.log
+.DS_Store
+Thumbs.db

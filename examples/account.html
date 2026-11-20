@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>行简 · 登录流程演示</title>
+<style>
+:root{--bg:#edf1f7;--panel:#fff;--ink:#14233a;--muted:#43526b;--boundary:#738099;--accent:#193d78;--error:#8e2639;font:100%/1.55 system-ui,sans-serif;background:var(--bg);color:var(--ink)}*{box-sizing:border-box}body{margin:0}.shell{width:min(100% - 1.5rem,29rem);margin:clamp(1rem,6vh,4rem) auto}.brand{margin:0 0 1rem;color:var(--accent);font-weight:750;letter-spacing:.15em}.surface{padding:clamp(1.05rem,5vw,2.25rem);background:var(--panel);border-radius:1rem}.eyebrow,.hint{color:var(--muted);margin:.25rem 0 1rem}h1{font-size:1.85rem;line-height:1.2;margin:0 0 .6rem}form{margin-top:1.35rem}label{font-weight:650;display:block;margin-top:.85rem}input,button{font:inherit;color:inherit;min-height:2.75rem;border:1px solid var(--boundary);border-radius:.4rem}input{width:100%;min-width:0;padding:.5rem .65rem;background:var(--panel)}button{padding:.45rem .75rem;background:var(--panel);cursor:pointer}.field{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.4rem}.primary{width:100%;margin:1rem 0 .5rem;color:var(--panel);background:var(--accent);border-color:var(--accent);font-weight:700}.plain{border-color:transparent;color:var(--accent);text-decoration:underline;text-underline-offset:.2em;padding-inline:0}.err{color:var(--error);margin:.25rem 0}.err:empty{display:none}[aria-invalid=true]{border-color:var(--error);border-width:2px}.fixtures{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.4rem}.fixtures button{flex:1 1 8rem}.fixtures-note{margin:.9rem 0 0;color:var(--muted);font-size:.9rem}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}[hidden]{display:none!important}
+</style></head>
+<body><main class="shell"><p class="brand">行简 / 工作台</p><div class="surface">
+<p class="eyebrow">离线演示 · 请使用内置示例，不输入真实凭据。</p>
+<section id="login" aria-labelledby="login-title">
+<h1 id="login-title" tabindex="-1">登录工作台</h1><p class="hint">处理任务之前，先选择你的账号。</p>
+<form id="signin" novalidate>
+<label for="user">邮箱</label><input id="user" name="username" type="email" autocomplete="username" required aria-describedby="user-error"><p class="err" id="user-error"></p>
+<label for="secret">密码</label><div class="field"><input id="secret" name="password" type="password" autocomplete="current-password" required aria-describedby="secret-error"><button id="toggle" type="button" aria-controls="secret">显示密码</button></div><p class="err" id="secret-error"></p>
+<p class="err" id="auth-error" role="alert"></p><button class="primary" type="submit">登录</button>
+</form><button class="plain" id="forgot" type="button">找回密码</button>
+<p class="fixtures-note">下方按钮只填入模拟数据，再由你提交。</p><div class="fixtures"><button id="valid" type="button">填入成功示例</button><button id="invalid" type="button">填入失败示例</button></div>
+</section>
+<section id="recovery" hidden aria-labelledby="recover-title">
+<h1 id="recover-title" tabindex="-1">找回密码</h1><p class="hint">输入账号邮箱。演示不会发送任何邮件。</p>
+<form id="recovery-form" novalidate><label for="recover-user">账号邮箱</label><input id="recover-user" name="recover-email" type="email" autocomplete="email" required aria-describedby="recovery-error"><p id="recovery-error" class="err"></p><button class="primary" type="submit">模拟发送重置说明</button></form>
+<p id="recovery-status" role="status"></p><button id="back-login" class="plain" type="button">返回登录</button>
+</section>
+<section id="success" hidden aria-labelledby="success-title"><h1 id="success-title" tabindex="-1">模拟登录成功</h1><p>这只是流程演示，没有建立真实会话。</p><button id="restart" type="button">再试一次</button></section>
+</div></main>
+<script>
+const byId = id => document.getElementById(id);
+const user = byId('user'), secret = byId('secret'), recoverUser = byId('recover-user'), toggle = byId('toggle');
+function show(id) { for (const name of ['login','recovery','success']) byId(name).hidden = name !== id; byId(id).querySelector('h1').focus(); }
+function error(input, text) { byId(input.getAttribute('aria-describedby')).textContent = text; if (text) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid'); }
+function hideSecret() { secret.type = 'password'; toggle.textContent = '显示密码'; }
+function clearLogin() { error(user, ''); error(secret, ''); byId('auth-error').textContent = ''; }
+function fill(value) { clearLogin(); hideSecret(); user.value = 'demo@example.test'; secret.value = value; }
+toggle.onclick = () => { const visible = secret.type === 'password'; secret.type = visible ? 'text' : 'password'; toggle.textContent = visible ? '隐藏密码' : '显示密码'; };
+byId('valid').onclick = () => fill('example-only');
+byId('invalid').onclick = () => fill('wrong-example');
+byId('signin').onsubmit = event => {
+ event.preventDefault(); clearLogin(); hideSecret();
+ if (!user.validity.valid) error(user, '请输入有效的邮箱地址。');
+ if (!secret.value) error(secret, '请输入密码，或使用下方的模拟示例。');
+ const bad = event.currentTarget.querySelector('[aria-invalid=true]'); if (bad) { bad.focus(); return; }
+ if (user.value === 'demo@example.test' && secret.value === 'example-only') { secret.value = ''; show('success'); return; }
+ secret.value = ''; byId('auth-error').textContent = '邮箱或密码不匹配。请重试，或使用找回密码。'; secret.focus();
+};
+byId('forgot').onclick = () => { recoverUser.value = user.value; secret.value = ''; hideSecret(); error(recoverUser, ''); byId('recovery-status').textContent = ''; show('recovery'); };
+byId('recovery-form').onsubmit = event => { event.preventDefault(); error(recoverUser, ''); if (!recoverUser.validity.valid) { error(recoverUser, '请输入有效的邮箱地址。'); recoverUser.focus(); return; } byId('recovery-status').textContent = '如果该邮箱有关联账号，可按邮件说明重置。此演示没有发送邮件。'; };
+byId('back-login').onclick = () => { user.value = recoverUser.value; clearLogin(); show('login'); byId('forgot').focus(); };
+byId('restart').onclick = () => { user.value = ''; clearLogin(); show('login'); };
+</script></body></html>

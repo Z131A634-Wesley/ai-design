@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>邻里借阅 · 手机界面原型</title>
+<style>
+:root{--ground:#f4e9db;--panel:#fff9ef;--ink:#28261f;--soft:#615346;--brand:#804326;--line:#ab927c;--white:#fff;font:100%/1.55 system-ui,sans-serif;background:var(--ground);color:var(--ink)}*{box-sizing:border-box}body{margin:0}.phone{max-width:30rem;min-height:100vh;margin:auto;background:var(--panel);padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom,0px))}.mast{border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap;padding-block:.6rem 1rem;margin-bottom:1rem}.logo{font-weight:750;letter-spacing:.08em}.mark,.summary{color:var(--soft);font-size:.9rem}.mark{padding:.18rem .42rem;border:1px solid var(--line);border-radius:.25rem}h1{font-size:clamp(1.65rem,1.35rem + 2vw,2.35rem);line-height:1.2;margin:.65rem 0}label{display:block;margin:.8rem 0 .25rem;font-weight:650}input,button{font:inherit;min-height:2.75rem;color:inherit;border:1px solid var(--line);border-radius:.45rem;background:var(--panel)}input{width:100%;padding:.5rem .65rem}button{padding:.5rem .8rem;cursor:pointer}.back{margin:0 0 .7rem}.primary{background:var(--brand);border-color:var(--brand);color:var(--white);font-weight:700}.tool-list{list-style:none;padding:0;margin:1rem 0}.tool-list li{border-bottom:1px solid var(--line)}.tool-list button{display:grid;text-align:left;grid-template-columns:minmax(0,1fr) auto;gap:.15rem .5rem;align-items:center;border:0;border-radius:0;width:100%;padding:.7rem .4rem}.tool-list button:hover{box-shadow:inset .2rem 0 var(--brand)}.tool-name{font-weight:700}.tool-info{grid-column:1;color:var(--soft)}.badge{grid-column:2;grid-row:1 / span 2;color:var(--brand);font-size:.88rem;font-weight:700}.detail-status{color:var(--brand);font-weight:700}.note{border-top:1px solid var(--line);padding-top:1rem;margin-top:1.3rem;color:var(--soft)}:focus-visible{outline:3px solid var(--brand);outline-offset:2px}[hidden]{display:none!important}
+</style></head>
+<body><main class="phone"><header class="mast"><span class="logo">邻里借阅</span><span class="mark">手机界面原型</span></header>
+<section id="listing" aria-labelledby="list-title"><h1 id="list-title" tabindex="-1">附近的工具</h1><p>周末动手前，先看看邻居共享了什么。</p><label for="query">搜索工具</label><input id="query" type="search" placeholder="例如：电钻" autocomplete="off"><p class="summary" id="count" role="status"></p>
+<ul class="tool-list" id="results"><li data-key="钻 电钻 安装"><button type="button" data-id="drill"><span class="tool-name">无线电钻</span><span class="tool-info">适合在木质家具上安装配件</span><span class="badge">可借</span></button></li><li data-key="梯 折叠梯"><button type="button" data-id="ladder"><span class="tool-name">折叠梯</span><span class="tool-info">适合家用登高</span><span class="badge">已借出</span></button></li><li data-key="测量 卷尺"><button type="button" data-id="tape"><span class="tool-name">五米卷尺</span><span class="tool-info">测量家具和房间尺寸</span><span class="badge">可借</span></button></li></ul>
+<div id="empty" hidden><p>没有匹配的工具。试试更短的关键词，或看看全部工具。</p><button id="clear" type="button">清空搜索</button></div></section>
+<section id="detail" hidden aria-labelledby="detail-title"><button id="back" class="back" type="button">← 返回工具列表</button><h1 id="detail-title" tabindex="-1"></h1><p class="detail-status" id="status"></p><p id="detail-info"></p><button id="next" class="primary" type="button"></button><p class="note">虚构数据 · 不会发出真实预约。</p></section>
+<section id="done" hidden aria-labelledby="done-title"><h1 id="done-title" tabindex="-1">模拟预约完成</h1><p>已走通预约路径。原型没有通知任何人。</p><button id="done-back" type="button">返回工具列表</button></section>
+</main><script>
+const $ = id => document.getElementById(id);
+const query = $('query'), rows = [...$('results').children];
+const details = { drill:['无线电钻','可借','适合木质家具和小型安装。借用前请确认钻头尺寸。'], ladder:['折叠梯','已借出','暂时无法预约，返回列表查看其他可借工具。'], tape:['五米卷尺','可借','适合测量家具和房间。'] };
+let current, trigger, scrollBefore = 0;
+function filter(){const q = query.value.trim(); let count=0; for(const row of rows){row.hidden = !row.dataset.key.includes(q); if(!row.hidden)count++;} $('count').textContent = `${count} 项工具`; $('empty').hidden = count !== 0;}
+function show(id){for(const screen of ['listing','detail','done']) $(screen).hidden = screen !== id; $(id).querySelector('h1').focus({preventScroll:true});}
+function returnToList(){show('listing'); if (trigger && !trigger.closest('li').hidden) trigger.focus({preventScroll:true}); else query.focus({preventScroll:true}); window.scrollTo(0,scrollBefore);}
+query.addEventListener('input', filter); $('clear').onclick=()=>{query.value='';filter();query.focus();};
+for(const row of rows){row.querySelector('button').onclick=event=>{trigger=event.currentTarget;scrollBefore=window.scrollY;current=details[trigger.dataset.id]; $('detail-title').textContent=current[0]; $('status').textContent=current[1]; $('detail-info').textContent=current[2]; $('next').textContent=current[1]==='可借'?'模拟预约':'查看其他工具';show('detail');window.scrollTo(0,0);};}
+$('back').onclick=returnToList; $('done-back').onclick=returnToList;
+$('next').onclick=()=>{if(current[1]!=='可借'){returnToList();return;}show('done');window.scrollTo(0,0);};filter();
+</script></body></html>
