@@ -1,25 +1,63 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
-<title>春汛书屋 · 河岸上的阅读空间</title>
+<title>春汛书屋 — 沿河读书</title>
 <style>
-:root{--paper:#f2f3e8;--ink:#162c25;--soft:#425b4e;--brand:#205843;--line:#a0ac93;--mist:#dce6d0;--white:#fff;--accent:#e8a966;font:100%/1.55 system-ui,sans-serif;color:var(--ink);background:var(--paper)}
-*{box-sizing:border-box}body{margin:0}a{color:inherit}a:focus-visible{outline:3px solid var(--ink);outline-offset:4px}.frame{width:min(100% - 2rem,72rem);margin-inline:auto}.brandbar{display:flex;justify-content:space-between;align-items:center;gap:.5rem 1.25rem;flex-wrap:wrap;padding-block:1.1rem;border-bottom:1px solid var(--line)}.brand{font-weight:750;text-decoration:none;letter-spacing:.13em}.brandbar a{display:inline-flex;align-items:center;min-height:2.75rem}.brandbar nav{display:flex;flex-wrap:wrap;gap:.3rem 1rem}.brandbar nav a{text-underline-offset:.25em}.hero{display:grid;gap:2rem;align-items:center;padding-block:clamp(2.2rem,7vw,7rem)}.tag{font-size:.88rem;color:var(--brand);font-weight:700;letter-spacing:.12em}.hero h1{margin:.55rem 0 1rem;font-size:clamp(2.4rem,1.6rem + 4vw,5rem);font-family:Georgia,'Noto Serif CJK SC','Microsoft YaHei',serif;letter-spacing:-.035em;line-height:1.13}.hero p:not(.tag){color:var(--soft);max-width:28em;margin-bottom:1.6rem}.cta{display:inline-flex;align-items:center;min-height:2.75rem;padding:.65rem 1.1rem;background:var(--brand);color:var(--white);text-decoration:none;font-weight:700}.hero svg{display:block;width:100%;height:auto;background:var(--mist)}.events{border-block:1px solid var(--line);padding-block:2rem 2.5rem}.events article{border-top:1px solid var(--line);padding-block:1rem}.events article p{margin:.25rem 0;color:var(--soft)}.events article h3{margin:0}.events h2{font-size:1.65rem}footer{color:var(--soft);padding-block:1.5rem 2.5rem}#gather{scroll-margin-block-start:1rem}@media(min-width:52rem){.hero{grid-template-columns:1fr 1.08fr}}.skip{position:absolute;inset-inline-start:1rem;top:1rem;transform:translateY(-220%);background:var(--paper);padding:.5rem}.skip:focus{transform:none}
-</style></head>
+:root{color-scheme:light;--paper:#f8f4e8;--ink:#222e27;--quiet:#4e5a4c;--blue:#173c4a;--lake:#254c57;--red:#983f2b;--line:#cecbbd;--serif:'Noto Serif CJK SC','Source Han Serif SC',SimSun,serif;--sans:system-ui,'Microsoft YaHei',sans-serif;font:100%/1.6 var(--sans);color:var(--ink);background:var(--paper)}
+*{box-sizing:border-box}body{margin:0}a{color:inherit;text-underline-offset:.27em}a:focus-visible{outline:2px solid var(--red);outline-offset:5px}.wrap{width:min(100% - 3rem,82rem);margin-inline:auto}.skip{position:absolute;top:.5rem;left:1rem;z-index:1;padding:.6rem 1rem;background:var(--paper);transform:translateY(-130%)}.skip:focus{transform:none}.mast{min-height:5.25rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem 2rem;border-bottom:1px solid var(--line)}.wordmark{display:flex;align-items:center;gap:.65rem;text-decoration:none;font:700 1.25rem var(--serif);white-space:nowrap}.seal{display:grid;place-items:center;width:2.25rem;aspect-ratio:1;background:var(--red);color:var(--paper);font-size:1.2rem}.mast nav{display:flex;gap:.2rem clamp(1rem,4vw,3rem);flex-wrap:wrap;font-size:.9rem}.mast nav a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none}.mast nav a:hover{text-decoration:underline}.issue{font:.8rem/1.4 Georgia,serif;letter-spacing:.15em;color:var(--quiet)}
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(1rem,5vw,5rem);align-items:center;padding-block:clamp(2.3rem,5vw,5rem) 0}.kicker{color:var(--red);font-size:.79rem;font-weight:750;letter-spacing:.15em;margin:0 0 1.05rem}.hero h1{margin:0;font:700 clamp(2.6rem,5.5vw,6.15rem)/1.12 var(--serif);letter-spacing:-.055em}.hero h1 span{display:block}.intro{margin:1.45rem 0;color:var(--quiet);max-width:24em;font-size:clamp(1rem,1.4vw,1.12rem)}.action{display:inline-flex;gap:1.6rem;align-items:center;min-height:48px;padding:.65rem 1.05rem;background:var(--blue);color:var(--paper);text-decoration:none;font-size:.93rem;font-weight:700}.action:hover{background:var(--lake)}.hero figure{min-width:0;margin:0}.hero svg{display:block;width:100%;height:auto;background:var(--blue)}figcaption{display:flex;justify-content:space-between;gap:.5rem 1rem;flex-wrap:wrap;padding-top:.7rem;color:var(--quiet);font-size:.78rem}figcaption span:last-child{font-family:Georgia,serif;letter-spacing:.09em}.rhythm{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-block:1px solid var(--line);margin-top:clamp(1.6rem,3.8vw,3.75rem);padding:.75rem 0;color:var(--quiet);font-size:.84rem}.events{padding-block:clamp(2.25rem,6vw,6rem);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:1rem 3rem;scroll-margin-top:1rem}.events h2{font:700 clamp(1.6rem,3vw,2.55rem)/1.2 var(--serif);margin:0}.event{display:grid;grid-template-columns:minmax(5rem,.45fr) minmax(0,2fr);gap:.6rem 1.25rem;padding:1.15rem 0;border-top:1px solid var(--line)}.event:last-child{border-bottom:1px solid var(--line)}.event time{color:var(--red);font-weight:750;font-size:.85rem}.event h3{font:700 1.3rem/1.3 var(--serif);margin:0 0 .35rem}.event p{margin:0;color:var(--quiet);font-size:.91rem}.about{border-top:1px solid var(--line);padding:1.2rem 0 2rem;display:flex;gap:.6rem 2rem;justify-content:space-between;flex-wrap:wrap;font-size:.85rem;color:var(--quiet)}
+@media(max-width:51rem){.wrap{width:calc(100% - 2rem)}.hero{grid-template-columns:1fr;gap:1.65rem}.hero h1{font-size:clamp(2.6rem,10.6vw,4.9rem)}.hero figure{max-width:42rem}.events{grid-template-columns:1fr;gap:1.2rem}.issue{display:none}}@media(max-width:24rem){.mast{gap:0 .75rem}.mast nav{gap:.65rem;font-size:.8rem}.wordmark{font-size:1.05rem}.seal{width:1.85rem}.event{grid-template-columns:1fr;gap:.35rem}}
+</style>
+</head>
 <body>
 <a class="skip" href="#main">跳到主要内容</a>
-<header class="frame brandbar"><a class="brand" href="#main">春汛书屋</a><nav aria-label="网站导航"><a href="#gather">读书会</a><a href="#about">关于书屋</a></nav></header>
-<main id="main" class="frame">
+<header class="wrap mast">
+ <a class="wordmark" href="#main"><span class="seal" aria-hidden="true">汛</span>春汛书屋</a>
+ <nav aria-label="网站导航"><a href="#gather">读书会</a><a href="#about">关于书屋</a></nav>
+ <span class="issue" lang="en">RIVERSIDE READING ROOM</span>
+</header>
+<main class="wrap" id="main" tabindex="-1">
  <section class="hero" aria-labelledby="headline">
-  <div><p class="tag">河岸阅读空间</p><h1 id="headline">在河边，<br>留一页给自己。</h1><p>周六下午，围着一张桌子读书。带一本正在读的书来，也可以只带一点好奇。</p><a class="cta" href="#gather">查看读书会</a></div>
-  <svg aria-hidden="true" viewBox="0 0 560 370" xmlns="http://www.w3.org/2000/svg">
-   <path fill="#dce6d0" d="M0 0h560v370H0z"/><circle cx="429" cy="99" r="61" fill="#e8a966"/><path d="M0 259c128-61 191 50 310-5 97-45 155-39 250-19v135H0z" fill="#75a087"/>
-   <path d="M77 250h331v25H77z" fill="#244f40"/><path d="M96 113h59v137H96z" fill="#244f40"/><path d="M101 133h49m-49 86h49" stroke="#e3dec1" stroke-width="2"/><path d="M166 95h62v155h-62z" fill="#b57548"/><path d="M178 118h38m-38 105h38" stroke="#f4e2aa" stroke-width="2"/><path d="m249 104 50-16 48 147-46 15z" fill="#f2f0df"/><path d="m260 124 37-12m-13 79 38-12" stroke="#6a7866" stroke-width="2"/><path d="M389 272c52-8 108-25 171-13M356 303c87-23 147-35 204-27M415 332c52-13 93-22 145-21" stroke="#c9ddc8" stroke-width="2" fill="none"/>
-  </svg>
+  <div>
+   <p class="kicker">河边的周末读书会</p>
+   <h1 id="headline"><span>读一本书，</span><span>坐一会儿。</span></h1>
+   <p class="intro">每个周六午后，我们在河边围桌读书。不赶进度，不必讲心得，带一本你想读的书就好。</p>
+   <a class="action" href="#gather">查看读书会 <span aria-hidden="true">↘</span></a>
+  </div>
+  <figure>
+   <svg viewBox="0 0 640 510" role="img" aria-label="原创双色版画：一册打开的书化成河岸，水流穿过纸页。" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+     <pattern id="grain" width="13" height="11" patternUnits="userSpaceOnUse"><path d="M1 2h1m4 6h1m4-5h1m-3 7h1" stroke="#f8eed5" opacity=".21" stroke-width=".85"/></pattern>
+     <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(-26)"><path d="M0 0v8" stroke="#e4cda0" opacity=".34" stroke-width="1"/></pattern>
+    </defs>
+    <path fill="#173c4a" d="M0 0h640v510H0z"/><path fill="url(#grain)" d="M0 0h640v510H0z"/>
+    <g fill="none" stroke="#92adb0" opacity=".48"><path d="M-20 376Q117 323 226 377T455 382t215-146M-20 392Q113 335 229 393T456 398t216-149M-20 410Q109 349 232 409T458 414t217-153M-20 430Q105 365 236 427T460 431t219-158M-20 452Q102 382 242 447T465 451t217-160M-20 476Q104 398 249 468T469 474t215-166M-20 501Q113 415 255 490T475 495t214-170"/></g>
+    <circle cx="460" cy="143" r="71" fill="#cc7454"/><path fill="url(#hatch)" d="M390 160a71 71 0 0 0 138 0z"/>
+    <g stroke="#a7b6a5" stroke-width="1" opacity=".55"><path d="M61 80h59m-44 11h67m385-15h49m-30 10h42M48 152h47m459 100h39m-28 9h44"/></g>
+    <path d="M78 182q134-51 242 42 111-93 242-44v158q-123-52-242 28Q204 295 78 341z" fill="#102e39" stroke="#d4b486" stroke-width="2"/>
+    <path d="M94 169q113-51 226 41v137Q204 277 94 321z" fill="#ecd9ad"/>
+    <path d="M320 210q106-87 227-42v153q-112-45-227 26z" fill="#f5e8c6"/>
+    <path d="M94 169q113-51 226 41v137Q204 277 94 321z" fill="url(#grain)"/>
+    <g fill="none" stroke="#53685e" opacity=".68" stroke-width="1.25"><path d="M115 189q92-34 183 38M115 200q91-34 183 39M115 214q90-34 183 39M115 228q90-34 183 39M115 243q91-33 183 38M115 257q93-33 183 37M115 273q91-32 183 35M342 226q91-70 184-39M342 238q91-70 184-39M342 252q91-70 184-39M342 267q91-70 184-39M342 282q89-68 184-38M342 297q88-65 184-37M342 311q89-64 184-37"/></g>
+    <path d="M238 119q-15 59 42 96c24 17 33 32 22 57-16 39 5 76 60 96 56 20 110 12 166 61" fill="none" stroke="#173c4a" stroke-width="14"/>
+    <path d="M238 119q-15 59 42 96c24 17 33 32 22 57-16 39 5 76 60 96 56 20 110 12 166 61" fill="none" stroke="#92adb0" stroke-width="1" opacity=".75"/>
+    <path d="M33 34h32m-32 0v31m574-31h-32m32 0v31M33 477h32m-32 0v-31m574 31h-32m32 0v-31" fill="none" stroke="#d4b486" opacity=".7"/>
+   </svg>
+   <figcaption><span>春汛图记 · 纸页与河流</span><span lang="en">FIG. 01 / RIVER NOTES</span></figcaption>
+  </figure>
  </section>
- <section class="events" id="gather" aria-labelledby="events-title"><h2 id="events-title">本期读书会</h2><article><h3>河流会记得什么？</h3><p>示例场次 · 周六 15:00 · 约 60 分钟</p><p>从一本写自然的书出发，聊聊自己生活里记得的一条河。</p></article></section>
+ <div class="rhythm"><span>周六 15:00 开始</span><span>一起读 60 分钟</span><span>可带自己的书，也可从书架选一本</span></div>
+ <section class="events" id="gather" aria-labelledby="events-title">
+  <div><p class="kicker">活动安排</p><h2 id="events-title">接下来的周六</h2></div>
+  <div>
+   <article class="event"><time datetime="15:00">15:00 · 本周</time><div><h3>河流会记得什么？</h3><p>从一本写自然的书出发，聊聊自己记得的一条河。</p></div></article>
+   <article class="event"><time datetime="15:00">15:00 · 下周</time><div><h3>把喜欢的一页带来</h3><p>各带一段想分享的文字；不想开口，也可以安静读完。</p></div></article>
+  </div>
+ </section>
 </main>
-<footer class="frame" id="about">春汛书屋 · 虚构品牌，离线设计样例。无预约或付款功能。</footer>
-</body></html>
+<footer class="wrap about" id="about"><strong>春汛书屋 · 河岸阅读空间</strong><span>虚构品牌与活动，仅作设计演示，不接受预约或付款。</span></footer>
+</body>
+</html>
