@@ -1,6 +1,6 @@
 # 项目主规范与页面差异
 
-优先读取已有 `DESIGN.md`、主题配置或设计系统文档；只有需要跨页面复用决策且尚未有记录时才补写。不要因 Skill 接入重命名已有 token 或引入第二份主规范。
+优先读取已有 `DESIGN.md`、主题配置或设计系统文档；只有需要跨页面复用决策且尚未有记录时才补写。每次开发的 [Design Spec](../templates/design-spec.template.md) 引用主规范版本和实现 token 源，并记录新增或变更的决定。已有主规范继续作为共同依据。
 
 ## 三类记录
 
@@ -26,6 +26,6 @@
 
 把原始值和语义用途分开；组件优先消费 `surface-background`、`text-secondary`、`action-primary-background`、`action-primary-background-hover` 等能说明对象和用途的语义名。状态明确时放到末尾。状态色、图表数据色与品牌强调色的职责独立。颜色本身没有普遍禁令，对比、可读性和业务意图优先。已有 `primary` 等约定明确时保留，不强改。
 
-页面结构与状态转移不用硬塞进主规范；按场景用 [营销页面规格](../templates/page-spec.template.md) 或 [线框流](../templates/flow-spec.template.md)。验收用 [质量闸门](quality-gates.md)，不固定所有栈的构建命令和视口。
+页面结构与状态转移按场景用 [营销页面规格](../templates/page-spec.template.md) 或 [线框流](../templates/flow-spec.template.md) 补充。验收用 [质量闸门](quality-gates.md)，根据项目选择构建命令和视口。
 
 参考：[Adobe Spectrum Design Tokens](https://github.com/adobe/spectrum-design-data)、[UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) 的主规范/页面差异组织方式。

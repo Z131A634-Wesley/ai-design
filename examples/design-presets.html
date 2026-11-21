@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'">
+<title>ai-design 风格预览</title>
+<style>
+:root{font:16px/1.6 system-ui,"Microsoft YaHei",sans-serif;color:#172336;background:#f5f6f8}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0}
+a{color:#254f9e;text-underline-offset:.2em}
+a:focus-visible{outline:2px solid #254f9e;outline-offset:4px}
+main{width:min(calc(100% - 36px),1240px);margin:0 auto 64px}
+.mast{padding:52px 0 24px;border-bottom:1px solid #cbd3de;margin-bottom:28px}
+.mast h1{font-size:clamp(2rem,4vw,3.5rem);line-height:1.12;margin:0 0 .6rem;letter-spacing:-.04em}
+.mast p{margin:0;color:#506175}
+.mast nav{display:flex;flex-wrap:wrap;gap:4px 20px;margin-top:18px}
+.mast a{padding-block:8px}
+.catalog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 22px}
+.catalog section{scroll-margin-top:1rem;min-width:0;background:#fff;border:1px solid #d5dde7;border-radius:12px;overflow:hidden}
+.label{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px 16px;padding:14px 20px}
+.label h2{margin:0;font-size:1.12rem}
+.label p{margin:0;color:#506175;font-size:.88rem}
+.specimen{min-height:305px;padding:24px;color:var(--text);background:var(--canvas);font-size:14px;line-height:1.45;position:relative}
+.specimen p{margin:.5rem 0;color:var(--muted)}
+.specimen h3{margin:0;font-size:1.62rem;line-height:1.12}
+.surface{background:var(--surface);border:1px solid var(--line);color:var(--text)}
+.action{display:inline-flex;align-items:center;min-height:38px;margin-top:12px;padding:0 12px;background:var(--accent);color:var(--on-accent);border-radius:6px;font-weight:700;font-size:13px}
+.tiny{font-size:12px;color:var(--muted)}
+.ops-body{display:grid;grid-template-columns:94px minmax(0,1fr);gap:16px}
+.ops-rail{border-right:1px solid var(--line)}
+.ops-rail span{display:block;font-size:12px;margin:8px 8px 0 0;padding:5px 6px;background:var(--accent-soft);color:var(--accent);border-radius:4px}
+table{border-collapse:collapse;width:100%;margin-top:10px;text-align:left;font-size:12px}
+th,td{border-bottom:1px solid var(--line);padding:9px 8px}
+th{color:var(--muted)}
+.tag{white-space:nowrap;background:var(--warning-soft);color:var(--warning);padding:3px 6px;border-radius:4px}
+#signal .specimen{display:grid;grid-template-columns:1fr .84fr;gap:20px;align-items:center;background:radial-gradient(ellipse at 96% 28%, #203229 0%, transparent 52%),var(--canvas)}
+#signal h3{font-size:clamp(1.8rem,3vw,2.65rem);letter-spacing:-.045em}
+.terminal{padding:12px 14px;border-radius:10px;font-family:ui-monospace,monospace}
+.terminal div{display:flex;justify-content:space-between;gap:8px;align-items:center;border-top:1px solid var(--line);margin-top:10px;padding-top:8px}
+.terminal strong{color:var(--accent)}
+#editorial .specimen{background:linear-gradient(130deg,#eee4d3,var(--canvas) 64%);display:grid;align-content:center}
+#editorial h3{font-family:Georgia,serif;font-size:clamp(2.2rem,4vw,3.8rem);letter-spacing:-.065em;max-width:10ch}
+.colophon{margin-top:14px;border-top:1px solid var(--line);padding-top:8px}
+#editorial .action{border-radius:3px}
+.glass-media{display:grid;place-items:end center;min-height:220px;padding:16px;border-radius:12px;background:radial-gradient(ellipse at 78% 72%,#e4edfb 2%,transparent 37%),linear-gradient(152deg,#b1c5db 12%,#758fae 44%,#c1dbc7 69%,#435e73 93%)}
+.glass-nav{display:flex;gap:8px;align-items:center;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);box-shadow:0 8px 24px #17263724;font-weight:650;font-size:13px}
+.glass-nav strong{padding:7px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+@supports(backdrop-filter:blur(12px)){.glass-nav{background:var(--glass);backdrop-filter:blur(12px)}}
+@media(prefers-reduced-transparency:reduce){.glass-nav{background:var(--surface);backdrop-filter:none}}
+#mobile .specimen{display:grid;place-items:center}
+.phone{width:min(100%,295px);border-radius:22px;padding:16px}
+.phone h3{font-size:1.35rem}
+.phone ul{list-style:none;padding:0;margin:8px 0}
+.phone li{padding:7px 0;border-bottom:1px solid var(--line)}
+.phone .action{width:100%;justify-content:center;border-radius:10px;min-height:44px}
+@media(max-width:760px){.catalog{grid-template-columns:1fr}.mast{padding-top:32px}}
+@media(max-width:460px){.specimen{padding:16px}.ops-body{grid-template-columns:1fr}.ops-rail{display:none}#signal .specimen{grid-template-columns:1fr}.label{padding-inline:16px}.mast nav{gap:0 12px}}
+#operations .specimen {
+--canvas: #f3f5f8;
+--surface: #ffffff;
+--surface-hover: #edf2f8;
+--text: #182536;
+--muted: #52647a;
+--line: #d5dde7;
+--control-line: #697a90;
+--accent: #254f9e;
+--accent-hover: #1f407e;
+--on-accent: #ffffff;
+--focus: #254f9e;
+--accent-soft: #e4edff;
+--warning: #854114;
+--warning-soft: #ffeed5;
+--success: #176149;
+--success-soft: #e3f4eb;
+}
+#signal .specimen {
+--canvas: #101319;
+--surface: #181e28;
+--surface-hover: #202936;
+--text: #f0f4fb;
+--muted: #a8b5c7;
+--line: #344154;
+--control-line: #65758b;
+--accent: #b5ed76;
+--accent-hover: #c9f69f;
+--on-accent: #172411;
+--focus: #c8fded;
+--secondary: #93c8ff;
+--accent-soft: #233723;
+}
+#editorial .specimen {
+--canvas: #f8f6f0;
+--surface: #fffdf8;
+--surface-hover: #efeae0;
+--text: #22251f;
+--muted: #5b6054;
+--line: #d5d1c6;
+--control-line: #797c70;
+--accent: #764631;
+--accent-hover: #5b3222;
+--on-accent: #ffffff;
+--focus: #764631;
+--accent-soft: #efe2d6;
+}
+#glass .specimen {
+--canvas: #eaf0f6;
+--surface: #f8fbff;
+--surface-hover: #e6eef9;
+--text: #172637;
+--muted: #46586f;
+--line: #ccd8e5;
+--control-line: #677a91;
+--accent: #24518c;
+--accent-hover: #1d3e6c;
+--on-accent: #ffffff;
+--focus: #24518c;
+--accent-soft: #dce9fa;
+--glass: rgb(248 251 255 / 88%);
+}
+#mobile .specimen {
+--canvas: #f1f5f2;
+--surface: #ffffff;
+--surface-hover: #eaf4ee;
+--text: #152d25;
+--muted: #4d675e;
+--line: #d1ddd5;
+--control-line: #64796d;
+--accent: #1b634f;
+--accent-hover: #134936;
+--on-accent: #ffffff;
+--focus: #1b634f;
+--accent-soft: #ddf0e5;
+--error: #a03238;
+}
+</style>
+</head>
+<body>
+<main>
+<header class="mast">
+<h1>ai-design 风格预览</h1>
+<p>五个内置方向，用不同内容演示构图、字阶和组件密度。以下界面为静态小样。</p>
+<nav aria-label="风格导航"><a href="#operations">业务工作台</a><a href="#signal">技术产品</a><a href="#editorial">出版物</a><a href="#glass">轻透导航</a><a href="#mobile">移动任务</a></nav>
+</header>
+<div class="catalog">
+<section id="operations">
+<header class="label"><h2>业务工作台</h2><p>后台 · SaaS · 数据看板</p></header>
+<div class="specimen ops-body" lang="en">
+<div class="ops-rail"><strong>Depot</strong><span>Shipments</span></div>
+<div><h3>Shipment queue</h3><p>6 shipments · 2 delayed</p>
+<table class="surface"><thead><tr><th>Shipment</th><th>Destination</th><th>Status</th></tr></thead><tbody><tr><td>DP-1082</td><td>Portland</td><td><span class="tag">Delayed</span></td></tr><tr><td>DP-1081</td><td>Seattle</td><td>In transit</td></tr><tr><td>DP-1080</td><td>Denver</td><td>Delivered</td></tr></tbody></table>
+</div></div>
+</section>
+<section id="signal">
+<header class="label"><h2>技术产品</h2><p>AI 产品 · 开发者工具</p></header>
+<div class="specimen" lang="en"><div><h3>Compare before you ship.</h3><p>Replay your evaluation suite.</p><span class="action">Try the demo</span></div>
+<div class="terminal surface"><span class="tiny">Evaluation / Example</span><div><span>v11</span><span>75%</span></div><div><span>v12</span><strong>92%</strong></div><div><span>Samples</span><span>24</span></div></div></div>
+</section>
+<section id="editorial">
+<header class="label"><h2>出版物</h2><p>官网 · 作品集 · 产品展示</p></header>
+<div class="specimen" lang="en"><h3>Everyday objects, well made.</h3><p class="colophon">Workshop collection · Spring</p><div><span class="action">Explore the collection</span></div></div>
+</section>
+<section id="glass">
+<header class="label"><h2>轻透导航</h2><p>媒体浏览 · 产品展示</p></header>
+<div class="specimen" lang="en"><h3>Coastal collection</h3><p>Media with a floating navigation layer</p>
+<div class="glass-media"><div class="glass-nav"><strong>Overview</strong><span>Gallery</span><span>Map</span></div></div></div>
+</section>
+<section id="mobile">
+<header class="label"><h2>移动任务</h2><p>预约 · H5 · 列表详情</p></header>
+<div class="specimen" lang="en"><div class="phone surface"><span class="tiny">Trail office</span><h3>Choose a time</h3><ul><li>09:30 · Available</li><li>11:00 · Full</li></ul><span class="action">Continue</span></div></div>
+</section>
+</div>
+</main>
+</body>
+</html>

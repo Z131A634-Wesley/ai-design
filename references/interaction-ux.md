@@ -20,10 +20,14 @@
 - 弹层按类型管理进入与退出焦点；模态内限制焦点，关闭后回触发者或合理后继；删除一行后回附近可继续操作的位置。吸顶/吸底不遮挡焦点；必要时提供 skip link。
 - 区分通用规则与库行为：特定 Radix 组件依靠动画保留退出生命周期，不能推导为所有 CSS transition 都失效。按所用库/原生控件文档验证退出、减少动效、焦点及可访问名称。
 
+## 锚定浮层
+
+菜单、选择器和气泡按需要写清触发器、对齐、宽度策略、碰到可用边缘时的位移或换边，以及内容超高时的滚动区域。使用已有组件的定位和焦点能力；缩放起点跟随实际出现的一侧。验收屏幕边缘、滚动及项目实际存在的「模态框内再打开选择器」路径。悬停提示允许指针从触发器移动到提示内容，关键内容有键盘或触屏可达的入口。
+
 ## 红旗
 
 - 错误只有红框；图标按钮无可访问名；替换原生控件但没有键盘支持；Tab 跳入隐藏区域；滚动后焦点被遮挡。
 - 条件区块更新却不提示，或每次输入都播报整个页面；关闭/删除后焦点丢失；筛选为空被误报成数据丢失。
 - 所有加载都锁全屏；操作按钮视觉反馈改变布局；把未提交、请求失败和成功画成一样。
 
-参考：[ARIA APG](https://www.w3.org/WAI/ARIA/apg/)、[GOV.UK Error summary](https://design-system.service.gov.uk/components/error-summary/)、[Radix Accessibility](https://www.radix-ui.com/primitives/docs/overview/accessibility)、[Vercel Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines)。
+参考：[ARIA APG](https://www.w3.org/WAI/ARIA/apg/)、[GOV.UK Error summary](https://design-system.service.gov.uk/components/error-summary/)、[Radix 浮层定位实现](https://github.com/radix-ui/primitives/blob/main/packages/react/popper/src/popper.tsx)、[Vercel Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines)。
